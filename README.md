@@ -4,14 +4,17 @@
 
 ---
 
-Git
+**Git**
 
 ### Python
+
+- Analysis
+- Pattern Recognition
+- Algorithm
 
 ### JAVA
 
 ### HTML
-
 
 
 
