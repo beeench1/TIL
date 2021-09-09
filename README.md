@@ -8,13 +8,7 @@
 
 ### Python
 
-- [Analysis](#가격분석)
-
-  #가격분석
-
-  Technical Analysis
-
-  
+- Analysis
 
 - Pattern Recognition
 
