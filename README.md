@@ -12,7 +12,6 @@ Git
 
 ### HTML
 
-[THIS](C:\Users\dabee\OneDrive\바탕 화면\TIL\Git.md)
 
 
 
