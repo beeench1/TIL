@@ -10,7 +10,7 @@
 
 - [Analysis](#가격분석)
 
-  #기술적 분석
+  #가격분석
 
   Technical Analysis
 
