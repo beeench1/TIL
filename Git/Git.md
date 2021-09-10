@@ -68,5 +68,63 @@ git push -u origin master : 로컬에 있는 master의 변경 사항을 origin�
 
 git clone {repo_url} : remote_repo를 local로 복사(**from** remote_repo **to** local)
 
+git clone {repo_url} . : 폴더 생성안하고 파일만 복사해옴   **.** 은 현재 디렉토리를 의미
+
 git push origin master : **from** local **to** remote_repo
+
+git pull origin master : **Get** repository change things **from** repository **to** Local **/** repository change things
+
+git remote rm origin : origin 삭제
+
+git restore --staged {file} : add 취소하기
+
+git restore {file} : Working Directory 변경사항 취소하기
+
+git reset --hard {c_id} : 커밋 되돌리기
+
+.gitignore :  제외할 파일 / 폴더 만들기
+
+​					디렉토리에 ".gitignore" 파일 만들고(touch .gitigore), 제외할 파일명, ''폴더명/'' 적기
+
+  				 특정 파일 - 파일명
+
+​                    특정 폴더 - 폴더명/
+
+​					# 특정 확장자 제외 *.확장자(ex_ *.png / *.jpg)
+
+​			
+
+## 브랜치
+
+git branch : 브랜치 목록
+
+git branch {branch name} : 브랜치 생성
+
+git checkout {branch name} : 브랜치이동
+
+git merge {branch name} : 브랜치 병합, branch_name = 병합할 지점의 브랜치 이름
+
+fast-forward merge : merge(t1,t2) = t2
+
+git log --graph --oneline : 브랜치에 대한 로그 한줄씩 출력
+
+
+
+#### Fork
+
+**:** **from** other remote **to** my remote
+
+​		(clone : **from** remote **to** local)
+
+#### Process of Fork
+
+Fork Opensource (**From** Remote **to** my remote)
+
+ -> Clone to my local
+
+ -> Add Branch & Update contents(At Local)
+
+ ->  git push origin {branch name}
+
+ ->  Pull request to Opensource repo
 
