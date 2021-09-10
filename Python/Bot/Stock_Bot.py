@@ -347,5 +347,5 @@ if __name__=="__main__":
     xl_file.save('MyList.xlsx')
     xl_file.close()
 
-    print("====== Finished ======")
+    print("========= Finished =========")
     
