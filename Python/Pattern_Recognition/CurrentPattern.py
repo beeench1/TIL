@@ -17,6 +17,7 @@ def CurrentPattern(data,period):
     for i in range(1,period):
         c_p=ch(data[-period],data[i-period])
         c_pattern.append(c_p)
+    
     c_patternAr.append(c_pattern)
 
 c_patternAr=[]

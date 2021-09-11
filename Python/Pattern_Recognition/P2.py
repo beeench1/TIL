@@ -5,6 +5,7 @@ import pandas as pd
 from openpyxl import load_workbook
 import numpy  as np
 import pandas as pd
+import matplotlib.pyplot as plt
 
 def ch(start,current):
     try:
@@ -29,7 +30,18 @@ def Storage(data,period,forward):
             pattern.append(round(p,2))
         
         patternAr.append(pattern)
+
+        currentPoint=data[forward]
+        outcomeRange=data[forward+20:forward+30]   # 현재 기준 20~30 간격 뒤의 결과값 예측
+
+        try:
+            avgOutcome=reduce(lambda x,y : x+y,outcomeRange) /len(outcomeRange)
+        except Exception:
+            print(str(e))
+            avgOutcome=0
         
+        futureOutcome=ch(currentPoint,avgOutcome)
+        performanceAr.append(round(futureOutcome,2))
         
         forward+=1
 
@@ -40,24 +52,29 @@ def CurrentPattern(data,period):
 
 def patternRecognition(period):
     patFound=0
-    similar = []
     for i in range(len(patternAr)):
         sim= np.corrcoef(patternAr[i],c_patternAr)[0,1]
-        similar.append(sim)
+        similar.append(round(sim,2))
         print("AR :"+str(patternAr[i]) + "----"+"CP : "+str(c_patternAr) +"---"+str(sim))
 
         if sim>0.5:
             sim_pattern=patternAr[i]
-            patFound+=1
             plotPatAr.append(sim_pattern)
+            plotPatCor.append(round(sim,2))
+            plotPatIndex.append(i)
+        patFound+=1
 
     print("찾은 패턴 계수 : " + str(patFound))
+    return patFound
 
-    
-data=[]
-patternAr=[]
-c_patternAr=[]
-plotPatAr=[]
+similar=[]
+data=[]             # 데이터 
+patternAr=[]        # 패턴 추출 저장
+performanceAr=[]    # 패턴의 미래 수익
+c_patternAr=[]      # 현시점 패턴
+plotPatAr=[]        # 유사한 패턴 저장
+plotPatCor=[]          # 유사패턴 상관계수
+plotPatIndex=[]     # 유사패턴 인덱스
 
 wb=load_workbook("aa.xlsx",data_only=True)
 ws=wb['Sheet1']
@@ -70,10 +87,39 @@ Storage(data,30,30)
 CurrentPattern(data,30)
 patternRecognition(30)
 
+
 print("패턴 리스트의 개수 : "+ str(len(patternAr)))
+print("패턴의 수익률 :" + str(len(performanceAr)))
 print("패턴당 데이터 수 :" + str(len(patternAr[0])))
 print("현재 패턴의 데이터 수 :" + str(len(c_patternAr)))
-print(patternAr[0])
-print(c_patternAr)
-print(plotPatAr)
-print(data)
+#print(performanceAr)
+#print(c_patternAr)
+#print(plotPatAr)
+#print(data)
+
+'''
+for i in range(len(plotPatAr)):
+    plt.figure(i)
+    plt.plot(c_patternAr,color='red',label='Current')
+    plt.plot(plotPatAr[i],color='green',label='Past')
+    plt.xlabel('period')
+    plt.ylabel('ch')
+    plt.text(20,1,str(plotPatCor[i]))
+    plt.legend(loc="lower right",ncol=1)
+    plt.show()
+'''
+
+for i in plotPatIndex:
+    FoundedPat=patternAr[i]
+    plt.figure(i)
+    plt.plot(c_patternAr,color='red',label='Current')
+    plt.plot(FoundedPat,color='green',label='Past')
+    plt.xlabel('period')
+    plt.ylabel('ch')
+    plt.text(25,(plt.ylim()[1]-plt.ylim()[0])/3,"COR :" + str(similar[i]))
+    plt.text(25,(plt.ylim()[1]-plt.ylim()[0])*2/3,"Profit(%) : " + str(performanceAr[i]))
+    plt.scatter(35,performanceAr[i],c='#24bc00',alpha=0.4)
+    plt.legend(loc="lower right",ncol=1)
+    plt.show()
+    
+
