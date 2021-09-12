@@ -26,7 +26,22 @@ def Storage(data,period,forward):
         
         patternAr.append(pattern)
         
-        '''
+        
+        forward+=1
+
+
+patternAr=[]
+performanceAr=[]
+data=[]
+
+for i in range(100):
+    data.append(random.randint(1,9))
+
+Storage(data,20,20)
+print(len(patternAr[0]))
+print(len(patternAr))
+
+'''
         currentPoint=p[period]
         outcomeRange=p[period+20:period+30]   # 현재 기준 20~30 간격 뒤의 결과값 예측
 
@@ -39,15 +54,3 @@ def Storage(data,period,forward):
         futureOutcome=ch(currentPoint,avgOutcome)
         performanceAr.append(futureOutcome)
         '''
-        forward+=1
-
-patternAr=[]
-performanceAr=[]
-data=[]
-
-for i in range(100):
-    data.append(random.randint(1,9))
-
-Storage(data,20,20)
-print(len(patternAr[0]))
-print(len(patternAr))

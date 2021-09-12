@@ -19,14 +19,15 @@ def ch(start,current):
         return 0.00000001
 
 
-def Storage(data,period,forward):
+def Storage(data,period):
     currentStance='none'
+    forward=period
     x=len(data)-period   # 가격 데이터 길이 - 패턴간격
     
     while forward<x:      # 전진값이 커져서 더이상 패턴간격만큼의 패턴을 못만들경우까지
         pattern=[]
-        for i in range(1,period):         
-            p=ch(data[forward-period],data[forward-period+i])
+        for i in range(period):         
+            p=ch(data[forward-period+i],data[forward])
             pattern.append(round(p,2))
         
         patternAr.append(pattern)
@@ -46,8 +47,8 @@ def Storage(data,period,forward):
         forward+=1
 
 def CurrentPattern(data,period):
-    for i in range(1,period):
-        c_p=ch(data[-period],data[i-period])
+    for i in range(period):
+        c_p=ch(data[-(period-i)],data[-period])
         c_patternAr.append(round(c_p,2))
 
 def patternRecognition(period):
@@ -57,12 +58,12 @@ def patternRecognition(period):
         similar.append(round(sim,2))
         print("AR :"+str(patternAr[i]) + "----"+"CP : "+str(c_patternAr) +"---"+str(sim))
 
-        if sim>0.5:
+        if sim>0.7:
             sim_pattern=patternAr[i]
             plotPatAr.append(sim_pattern)
             plotPatCor.append(round(sim,2))
             plotPatIndex.append(i)
-        patFound+=1
+            patFound+=1
 
     print("찾은 패턴 계수 : " + str(patFound))
     return patFound
@@ -79,20 +80,20 @@ plotPatIndex=[]     # 유사패턴 인덱스
 wb=load_workbook("aa.xlsx",data_only=True)
 ws=wb['Sheet1']
 
-for row in ws['A1':'A100']:
+for row in ws['A1':'A300']:
     for cell in row:
         data.append(cell.value)
         
-Storage(data,30,30)
+Storage(data,30)
 CurrentPattern(data,30)
 patternRecognition(30)
 
-
+print("데이터 개수 : " + str(len(data)))
 print("패턴 리스트의 개수 : "+ str(len(patternAr)))
 print("패턴의 수익률 :" + str(len(performanceAr)))
 print("패턴당 데이터 수 :" + str(len(patternAr[0])))
 print("현재 패턴의 데이터 수 :" + str(len(c_patternAr)))
-#print(performanceAr)
+print(performanceAr)
 #print(c_patternAr)
 #print(plotPatAr)
 #print(data)
@@ -108,6 +109,12 @@ for i in range(len(plotPatAr)):
     plt.legend(loc="lower right",ncol=1)
     plt.show()
 '''
+FoundedOutcome=[]
+dex=[]
+for i in plotPatIndex:
+    FoundedOutcome.append(performanceAr[i])
+    dex.append(35)
+
 
 for i in plotPatIndex:
     FoundedPat=patternAr[i]
@@ -116,10 +123,10 @@ for i in plotPatIndex:
     plt.plot(FoundedPat,color='green',label='Past')
     plt.xlabel('period')
     plt.ylabel('ch')
-    plt.text(25,(plt.ylim()[1]-plt.ylim()[0])/3,"COR :" + str(similar[i]))
-    plt.text(25,(plt.ylim()[1]-plt.ylim()[0])*2/3,"Profit(%) : " + str(performanceAr[i]))
-    plt.scatter(35,performanceAr[i],c='#24bc00',alpha=0.4)
-    plt.legend(loc="lower right",ncol=1)
+    plt.text(25,(plt.ylim()[1]+plt.ylim()[0])/3,"COR :" + str(similar[i]))
+    plt.text(25,(plt.ylim()[1]+plt.ylim()[0])*2/3,"Profit(%) : " + str(performanceAr[i]))
+    plt.scatter(dex,FoundedOutcome,c='#24bc00',alpha=0.4)
+    plt.legend(loc="lower left",ncol=1)
     plt.show()
     
 
