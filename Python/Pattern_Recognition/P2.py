@@ -6,6 +6,8 @@ from openpyxl import load_workbook
 import numpy  as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import math
+import statistics as st
 
 def ch(start,current):
     try:
@@ -36,12 +38,17 @@ def Storage(data,period,future):
         outcomeRange=data[forward:forward+future]   # 현재 기준 20~30 간격 뒤의 결과값 예측
 
         try:
-            avgOutcome=reduce(lambda x,y : x+y,outcomeRange) /len(outcomeRange)
+            # avgOutcome=reduce(lambda x,y : x+y,outcomeRange) /len(outcomeRange)
+            avgOutcome=st.mean(outcomeRange)
+            
         except Exception:
-            print(str(e))
             avgOutcome=0
+            pass
+            
         
         futureOutcome=ch(currentPoint,avgOutcome)
+        if abs(futureOutcome)>50:
+            futureOutcome=0
         performanceAr.append(round(futureOutcome,2))
         
         forward+=1
@@ -54,7 +61,7 @@ def CurrentPattern(data,period):
 def patternRecognition(period):
     patFound=0
     for i in range(len(patternAr)):
-        sim= np.corrcoef(patternAr[i],c_patternAr)[0,1]
+        sim= float(np.corrcoef(patternAr[i],c_patternAr)[0,1])
         similar.append(round(sim,2))
 
         if sim>0.8:
@@ -81,28 +88,21 @@ plotPatIndex=[]     # 유사패턴 인덱스
 FoundedOutcome=[]   # 유사 패턴 수익률
 FO_Index=[]         # 유사 패턴 수익률 인덱스
 
-
-code_='gold'
-time='60'
+adata_loc='F'
 cdata_loc='B'
 period=120
 future=48
 
-code=code_+time
-if time=='10': x1=201700 
-elif time=='60': x1=33642
-elif time=='240': x1=8774
 # 데이터 형성
 # 행 개수 -> 10m : 201700   ///  60m : 33642  /// 240m : 8774   /// day : 3644
-CodeList={"euro10":1,'euro60':2,'euro240':3,'euro_d':4,
-            'gold10':5,'gold60':6,'gold240':7,'gold_d':8,
+CodeList={"euro10":'A','euro60':'B','euro240':'C','euro_d':'D',
+            'gold10':'E','gold60':'F','gold240':'G','gold_d':'H',
             'oil10':9,'oil60':10,'oil240':11,'oil_d':12}
 
 wb=load_workbook("allData.xlsx",data_only=True)
-ws=wb['Sheet1']
-for i in range(2,x1):
-    data.append(ws.cell(i,CodeList[code]).value)
-
+col=wb['Sheet1']['F'][1:]
+for cell in col:
+    data.append(cell.value)
 
 # 현재 데이터 형성
 wb1=load_workbook("data.xlsx",data_only=True)
@@ -135,6 +135,7 @@ plt.plot(c_patternAr,color='red')
 plt.xlabel('period')
 plt.ylabel('ch')
 plt.scatter(FO_Index,FoundedOutcome,c='#24bc00',alpha=0.4)
+plt.axhline(st.median(FoundedOutcome),0,1,color='blue')
 plt.show()
 
 # for i in plotPatIndex:
