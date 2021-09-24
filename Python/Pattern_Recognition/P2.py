@@ -88,28 +88,36 @@ plotPatIndex=[]     # 유사패턴 인덱스
 FoundedOutcome=[]   # 유사 패턴 수익률
 FO_Index=[]         # 유사 패턴 수익률 인덱스
 
-adata_loc='F'
-cdata_loc='B'
-period=120
-future=48
-
+# 120:60 // 72:36 // 48:24
+Code='Gold'
+Time='240'
+adata_loc='G'
+cdata_loc='C'
+period=48
+future=24
 # 데이터 형성
 # 행 개수 -> 10m : 201700   ///  60m : 33642  /// 240m : 8774   /// day : 3644
 CodeList={"euro10":'A','euro60':'B','euro240':'C','euro_d':'D',
-            'gold10':'E','gold60':'F','gold240':'G','gold_d':'H',
-            'oil10':9,'oil60':10,'oil240':11,'oil_d':12}
+            'gold10':'E','gold60':'F','gold240':'G','gold_d':'H'}
+
 
 wb=load_workbook("allData.xlsx",data_only=True)
-col=wb['Sheet1']['F'][1:]
+col=wb['Sheet1'][adata_loc][1:]
 for cell in col:
-    data.append(cell.value)
+    if cell.value==None:
+        break
+    else:
+        data.append(cell.value)
 
 # 현재 데이터 형성
 wb1=load_workbook("data.xlsx",data_only=True)
 col=wb1['Sheet1'][cdata_loc]
 
 for cell in col:
-    cdata.append(cell.value)
+    if cell.value==None:
+        break
+    else:
+        cdata.append(cell.value)
 
 # 패턴 데이터 형성
 Storage(data,period,future)
@@ -123,19 +131,28 @@ print("패턴 리스트의 개수 : "+ str(len(patternAr)))
 print("패턴당 데이터 수 :" + str(len(patternAr[0])))
 print("현재 패턴의 데이터 수 :" + str(len(c_patternAr)))
 
-
+xaxis=[]
 # 미래 수익률 계산
 for i in plotPatIndex:
     FoundedOutcome.append(performanceAr[i])
     FO_Index.append(period+5)
 
+
 # 그래프 그리기
 plt.figure()
+plt.title(Code+str(Time)+'|||'+str(period)+'::'+str(future))
 plt.plot(c_patternAr,color='red')
 plt.xlabel('period')
 plt.ylabel('ch')
 plt.scatter(FO_Index,FoundedOutcome,c='#24bc00',alpha=0.4)
 plt.axhline(st.median(FoundedOutcome),0,1,color='blue')
+plt.show()
+
+plt.figure()
+plt.title(Code+str(time)+'|||'+str(period)+'::'+str(future))
+plt.scatter(FO_Index,FoundedOutcome,c='#24bc00',alpha=0.4)
+plt.axhline(st.median(FoundedOutcome),0,1,color='blue')
+plt.axhline(0,0,1,color='black')
 plt.show()
 
 # for i in plotPatIndex:

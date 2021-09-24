@@ -339,7 +339,7 @@ if __name__=="__main__":
     
     xl_file=load_workbook('MyList.xlsx',data_only=True)
     ws=xl_file['Sheet1']
-    ws.delete_rows(0,50)
+    #ws.delete_rows(0,50)
     ws[weekday+str(1)]=str(datetime.now().strftime('%Y/%m/%d'))   
     for i in range(len(kiwoom.my_list)):    # my_list : score기반으로 선정한 종목
         ws[weekday+str(i+2)]=kiwoom.my_list[i]
