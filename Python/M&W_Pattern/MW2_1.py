@@ -4,6 +4,7 @@ from openpyxl import load_workbook
 import matplotlib.pyplot as plt
 import pandas as pd
 import statistics as st
+import time
 
 W_Pattern=[
 [2,1,4,3,5],
@@ -97,7 +98,7 @@ def perPattern(data,patternName,patternNum,period,distance):
                 ep=sp+distance
                 point=st.mean(data[sp:ep])
                 x.append(point)
-                print("Phase1"+"="+str(sp)+":"+str(ep))
+                #print("Phase1"+"="+str(sp)+":"+str(ep))
                 sp=ep+1
                 phase+=1
                 
@@ -107,7 +108,7 @@ def perPattern(data,patternName,patternNum,period,distance):
                 ep=sp+distance
                 point=st.mean(data[sp:ep])
                 x.append(point)
-                print("Phase2"+"="+str(sp)+":"+str(ep))
+                #print("Phase2"+"="+str(sp)+":"+str(ep))
                 sp=ep+1
                 phase+=1
             
@@ -116,7 +117,7 @@ def perPattern(data,patternName,patternNum,period,distance):
                 ep=sp+distance
                 point=st.mean(data[sp:ep])
                 x.append(point)
-                print("Phase3"+"="+str(sp)+":"+str(ep))
+                #print("Phase3"+"="+str(sp)+":"+str(ep))
                 sp=ep+1
                 phase+=1
 
@@ -125,7 +126,7 @@ def perPattern(data,patternName,patternNum,period,distance):
                 ep=sp+distance
                 point=st.mean(data[sp:ep])
                 x.append(point)
-                print("Phase4"+"="+str(sp)+":"+str(ep))
+                #print("Phase4"+"="+str(sp)+":"+str(ep))
                 sp=ep+1
                 phase+=1
 
@@ -136,7 +137,7 @@ def perPattern(data,patternName,patternNum,period,distance):
                 point=st.mean(data[sp:ep])
                 x.append(point)
                 Storage.append(x)
-                print("Phase5"+"="+str(sp)+":"+str(ep))
+                #print("Phase5"+"="+str(sp)+":"+str(ep))
 
                 currentPoint=data[ep]
                 outcomeRange=data[ep:ep+period]   # 현재 기준 20~30 간격 뒤의 결과값 예측
@@ -155,8 +156,8 @@ def perPattern(data,patternName,patternNum,period,distance):
                     futureOutcome=0
                 Profit.append(round(futureOutcome,2))
 
-                print("Phase5"+"="+str(sp)+":"+str(ep))
-                print("---------------------------------")
+                #print("Phase5"+"="+str(sp)+":"+str(ep))
+                #print("---------------------------------")
                 
                 sp=ep+1
                 phase=0
@@ -207,6 +208,30 @@ for cell in col:
     else:
         data.append(cell.value)
 
-a=perPattern(data,'M',0,30,10)
-print(a)
-print(st.mean(a))
+# def perPattern(data,patternName,patternNum,period,distance):
+
+period=[24,48,72,96,120]
+distance=[6,12,18,30]
+patternName='W'
+patternNum=13
+start=time.time()
+
+for num in range(0,3):
+    print("===================================")
+    print("Pattern : " + patternName+str(num))
+    for i in distance:
+        for j in period:
+            a=perPattern(data,'W',num,j,i)
+            try:
+                result=round(st.mean(a),2)
+            except:
+                result=0
+                continue
+            print("인터벌 기준 :" + str(i))
+            print("예측 기간 :" + str(j))
+            print("수익률 :" + str(result))
+            print("===================================")
+
+    end=time.time()
+    takeTime=(end-start)/60
+    print("Finish : "+str(takeTime)+'min')

@@ -193,21 +193,28 @@ for cell in col:
 
 period=[24,48,72,96,120]
 refVol=[0.1,0.2,0.3]
-patternName='M'
-patternNum=4
+patternName='W'
+patternNum=6
 start=time.time()
 
 
-print("Pattern : " + patternName+str(patternNum))
-for i in refVol:
-    for j in period:
-        a=perPattern(data,'M',patternNum,j,i)
-        result=round(st.mean(a),2)
-        print("변동성 기준 :" + str(i))
-        print("예측 기간 :" + str(j))
-        print("수익률 :" + str(result))
-        print("===================================")
+for num in range(11,16):
+    print("===================================")
+    print("Pattern : " + patternName+str(num))
+    for i in refVol:
+        for j in period:
+            a=perPattern(data,'W',num,j,i)
+            try:
+                result=round(st.mean(a),2)
+            except:
+                result=0
+                continue
 
-end=time.time()
-takeTime=(end-start)/60
-print("Finish : "+str(takeTime)+'min')
+            print("변동성 기준 :" + str(i))
+            print("예측 기간 :" + str(j))
+            print("수익률 :" + str(result))
+            print("===================================")
+
+    end=time.time()
+    takeTime=(end-start)/60
+    print("Finish : "+str(takeTime)+'min')
