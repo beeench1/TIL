@@ -1,0 +1,7 @@
+get https://www.googleapis.com/books/v1/volumes?q=intitle=시장의마법사
+
+###
+
+get https://yts.mx/api/v2/list_movices.json
+    ?minimum_ratings=8.5
+    &sort_by=year

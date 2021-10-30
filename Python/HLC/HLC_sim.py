@@ -156,7 +156,7 @@ Low=[]
 Open=[]
 Date=[]
 
-wb=load_workbook("gold60.xlsx",data_only=True)
+wb=load_workbook("goldDay.xlsx",data_only=True)
 col0=wb['Sheet1']['A'][1:]  # Date
 col1=wb['Sheet1']['C'][1:]   # High
 col2=wb['Sheet1']['D'][1:]  # Low
@@ -199,7 +199,7 @@ HLC(df)
 
 # simulation_l(df,ref,ref_c)
 
-ref=[0.4,0.3,0.2,0.1,0.08,0.06]
+ref=[2.0,1.8,1.6,1.4,1.2,1.0,0.8,0.6]
 ratio=[1,2,3,4]
 
 for i in ref:

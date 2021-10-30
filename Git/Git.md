@@ -108,6 +108,10 @@ fast-forward merge : merge(t1,t2) = t2
 
 git log --graph --oneline : 브랜치에 대한 로그 한줄씩 출력
 
+git branch -t {branch url}
+
+
+
 
 
 #### Fork

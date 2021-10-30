@@ -158,37 +158,35 @@ def perPattern_M(data,patternName,patternNum,period,cnt):
                 point = data[m]
                 if min(sample)==data[m]:
                     x.append(point)
+                    Storage.append(x)
+
+                    currentPoint=data[ep]
+                    outcomeRange=data[ep:ep+period]   # 현재 기준 20~30 간격 뒤의 결과값 예측
+
+                    try:
+                        # avgOutcome=reduce(lambda x,y : x+y,outcomeRange) /len(outcomeRange)
+                        avgOutcome=st.mean(outcomeRange)
+                        
+                    except Exception:
+                        avgOutcome=0
+                        pass
+                        
+                    
+                    futureOutcome=ch_(currentPoint,avgOutcome)
+                    if abs(futureOutcome)>50:
+                        futureOutcome=0
+                    Profit.append(round(futureOutcome,2))
+
+                    #print("Phase5"+"="+str(sp)+":"+str(ep))
+                    #print("---------------------------------")
                     phase=0
                     sp=ep+1
                     ep=sp+cnt
+                
+                    x=[]
                 else:
                     sp=sp+1
                     ep=sp+cnt
-
-                currentPoint=data[ep]
-                outcomeRange=data[ep:ep+period]   # 현재 기준 20~30 간격 뒤의 결과값 예측
-
-                try:
-                    # avgOutcome=reduce(lambda x,y : x+y,outcomeRange) /len(outcomeRange)
-                    avgOutcome=st.mean(outcomeRange)
-                    
-                except Exception:
-                    avgOutcome=0
-                    pass
-                    
-                
-                futureOutcome=ch_(currentPoint,avgOutcome)
-                if abs(futureOutcome)>50:
-                    futureOutcome=0
-                Profit.append(round(futureOutcome,2))
-
-                #print("Phase5"+"="+str(sp)+":"+str(ep))
-                #print("---------------------------------")
-                
-            
-                phase=0
-                
-                x=[]
 
     for i in Storage:
         x=[]
@@ -214,7 +212,7 @@ def perPattern_M(data,patternName,patternNum,period,cnt):
         
         
 
-    return patternProfit
+    return patternProfit, len(patternStorage), len(patternProfit)
 
 def perPattern_W(data,patternName,patternNum,period,cnt):
     Storage=[]
@@ -292,35 +290,35 @@ def perPattern_W(data,patternName,patternNum,period,cnt):
                 point = data[m]
                 if max(sample)==data[m]:
                     x.append(point)
+                    Storage.append(x)
+
+                    currentPoint=data[ep]
+                    outcomeRange=data[ep:ep+period]   # 현재 기준 20~30 간격 뒤의 결과값 예측
+
+                    try:
+                        # avgOutcome=reduce(lambda x,y : x+y,outcomeRange) /len(outcomeRange)
+                        avgOutcome=st.mean(outcomeRange)
+                        
+                    except Exception:
+                        avgOutcome=0
+                        pass
+                        
+                    
+                    futureOutcome=ch_(currentPoint,avgOutcome)
+                    if abs(futureOutcome)>50:
+                        futureOutcome=0
+                    Profit.append(round(futureOutcome,2))
+
+                    #print("Phase5"+"="+str(sp)+":"+str(ep))
+                    #print("---------------------------------")
                     phase=0
                     sp=ep+1
                     ep=sp+cnt
+
+                    x=[]
                 else:
                     sp=sp+1
                     ep=sp+cnt
-
-                currentPoint=data[ep]
-                outcomeRange=data[ep:ep+period]   # 현재 기준 20~30 간격 뒤의 결과값 예측
-
-                try:
-                    # avgOutcome=reduce(lambda x,y : x+y,outcomeRange) /len(outcomeRange)
-                    avgOutcome=st.mean(outcomeRange)
-                    
-                except Exception:
-                    avgOutcome=0
-                    pass
-                    
-                
-                futureOutcome=ch_(currentPoint,avgOutcome)
-                if abs(futureOutcome)>50:
-                    futureOutcome=0
-                Profit.append(round(futureOutcome,2))
-
-                #print("Phase5"+"="+str(sp)+":"+str(ep))
-                #print("---------------------------------")
-                
-                
-                x=[]
 
     for i in Storage:
         x=[]
@@ -346,7 +344,7 @@ def perPattern_W(data,patternName,patternNum,period,cnt):
         
         
 
-    return patternProfit
+    return patternProfit, len(patternStorage), len(patternProfit)
 
 
 
@@ -371,24 +369,26 @@ for cell in col:
 
 period=[24,48,72,96,120]    # 예측기간
 distance=[5,13,23,47]   # 캔들 개수
-patternName='W'
+patternName='M'
 patternNum=13
 start=time.time()
+print("start")
 
-for num in range(0,3):
+for num in range(9,10):
     print("===================================")
     print("Pattern : " + patternName+str(num))
     for i in distance:
         for j in period:
-            a=perPattern(data,'W',num,j,i)
+            a=perPattern_M(data,'M',num,j,i)
             try:
-                result=round(st.mean(a),2)
+                result=round(st.mean(a[0]),2)
             except:
                 result=0
-                continue
+                
             print("인터벌 기준 :" + str(i))
             print("예측 기간 :" + str(j))
             print("수익률 :" + str(result))
+            print("표본 수 : " + str(a[1]) + " 맞는 패턴 개수 :" + str(a[2]))
             print("===================================")
 
     end=time.time()

@@ -216,7 +216,7 @@ patternName='W'
 patternNum=13
 start=time.time()
 
-for num in range(0,3):
+for num in range(3,4):
     print("===================================")
     print("Pattern : " + patternName+str(num))
     for i in distance:
