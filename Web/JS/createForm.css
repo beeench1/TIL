@@ -1,0 +1,52 @@
+.header{
+    height:7vw;
+    background-color:red;
+    top: 0px;
+}
+
+.footer{
+    height:5vw;
+    background-color:red;
+    margin-top : 20px;
+}
+
+body{
+    font-family : Roboto Mono;
+}
+
+.container{
+    margin : 10px auto;
+    width : 80%;
+
+}
+
+.title{
+    display : flex;
+    height : 30px;
+    border-bottom : solid;
+    border-color : #2196f3;
+}
+
+.writer{
+    height : 30px;
+    border-bottom : solid;
+    border-color : #2196f3
+}
+
+.contents{
+    margin-top : 10px;
+    height : 400px;
+    border : solid;
+    border-color : #2196f3
+}
+
+.btn{
+
+    display : flex;
+    height : 40px;
+    padding : 10px;
+}
+
+.btn button{
+    margin-right : 20px;;
+}

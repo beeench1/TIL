@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./public2.css">
+    <title>Document</title>
+    <script type="text/javascript">
+        window.onload=function(){
+        const moreBtn=document.querySelector('.description .detail .moreBtn');
+        const sub_detail=document.querySelector('.description .detail .sub_detail');
+
+        moreBtn.addEventListener('click',() =>{
+            moreBtn.classList.toggle('clicked');
+            sub_detail.classList.toggle('sub_detail_clamp');
+        });}
+    </script>
+</head>
+<body>
+    <div class="header">header</div>
+    <section class="title">TITLE</section>
+<div class=container>
+    
+    <section class="left">
+        <div class="image">
+            <img src=/images/hotel1.jpg>
+        </div>
+        
+        <section class="description">
+            <div><label for="pname" class="pname">기관명 : </label><span id=pname>병원</span></div>
+            </br>
+            <div><label for="adress" class="adress">주소 : </label><span id=adress>부산시 남구</span></div>
+            </br>
+            <div><label for="phone" class="phone">전화번호 : </label><span id=phone>000-0000-0000</span></div>
+            </br>
+            <div class="detail">
+                <span class="sub_detail">
+                    HelloWorld HelloWorld HelloWorld HelloWorld HelloWorld HelloWorld HelloWorld
+                    HelloWorld HelloWorld HelloWorld HelloWorld HelloWorld HelloWorld HelloWorld
+                </span>
+                <button class="moreBtn">button</button>
+            </div>
+        </section>
+    </section>
+    
+    <section class="map">
+        <img src=/images/naver_map.png>
+    </section>
+    
+    <section class="left">
+        <div class="image">
+            <img src=/images/hotel1.jpg>
+        </div>
+        
+        <section class="description">
+            <div><label for="pname" class="pname">기관명 : </label><span id=pname>병원</span></div>
+            </br>
+            <div><label for="adress" class="adress">주소 : </label><span id=adress>부산시 남구</span></div>
+            </br>
+            <div><label for="phone" class="phone">전화번호 : </label><span id=phone>000-0000-0000</span></div>
+            </br>
+            <div class="detail">
+                <span class="sub_detail">
+                    HelloWorld HelloWorld HelloWorld HelloWorld HelloWorld HelloWorld HelloWorld
+                    HelloWorld HelloWorld HelloWorld HelloWorld HelloWorld HelloWorld HelloWorld
+                </span>
+                <button class="moreBtn">button</button>
+            </div>
+        </section>
+    </section>
+
+</div>
+</body>
+</html>

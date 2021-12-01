@@ -6,15 +6,51 @@ body{
 
 a{
     text-decoration: none;
-    color: white;
+    color: #424242;
+}
+
+img{
+    height:100px;
+    width:100px;
+}
+
+.service{
+    display: flex;
+    margin : 10px;
+    background-color : beige;
+    height:2vw;
+    justify-content: end;
+}
+
+.header{
+    display:flex;
+    margin: 10px;
+    background-color:white;
+    height:7vw;
+    justify-content:center;
+}
+
+.footer{
+    margin : 10px;
+    background-color:black;
+    height:5vw;
+}
+
+.container{
+    
+    margin : auto;
+    height:1000px;
+    width : 80%;
+    background-color: yellow;
 }
 
 .navbar{
     display:flex;
     justify-content: space-between;
     align-items: center;
-    background-color: darkslateblue;
-    padding:8px 12px
+    background-color: #ffcccb;
+    padding:8px 12px;
+    margin-bottom : 10px;
 }
 
 .navbar__logo{

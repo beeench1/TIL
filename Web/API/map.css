@@ -1,0 +1,15 @@
+:root{
+    --basecolor : #5BA6A6;
+    --secondcolor : #027373;
+  }
+
+.api .map{
+    display : flex;
+    background-color: blue;
+    height : 30%;
+    width : 80%;
+}
+
+.body{
+    background-color: black;
+}

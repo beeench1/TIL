@@ -110,7 +110,7 @@ git log --graph --oneline : 브랜치에 대한 로그 한줄씩 출력
 
 git branch -t {branch url}
 
-
+git branch -r 브랜치 전체 목록
 
 
 
@@ -132,3 +132,8 @@ Fork Opensource (**From** Remote **to** my remote)
 
  ->  Pull request to Opensource repo
 
+
+
+브랜치 업데이트
+
+git rermote

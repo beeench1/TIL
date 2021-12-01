@@ -1,0 +1,101 @@
+
+
+.header{
+    height : 100px;
+    background-color: #0077c2;
+}
+
+.container{
+    margin : 5px auto;
+    width : 80%;
+}
+
+.title div{
+    font-size : 30px;
+    margin-top : 20px;
+    margin-bottom : 20px;
+    color : #0077c2;
+    
+}
+
+.bar{
+    display : flex;
+    font-size : 20px;
+    margin-left : 5px;
+    background-color :#0077c2;
+    color : white;
+    text-align : center;
+    border-top: 3px solid #0077c2;
+    border-bottom: 3px solid #0077c2;
+}
+
+.bar .num{
+    text-align : center;
+
+    align-items : center;
+    width : 10%;
+}
+
+.bar .title{
+    
+    width : 45%;
+}
+
+.bar .writer{
+    
+    width : 20%;
+}
+
+.bar .date{
+    
+    width : 15%;
+}
+
+.bar .view{
+    
+    width : 10%;
+}
+
+
+
+.contents{
+    border-bottom : 1px solid grey;
+    margin-left : 5px;
+    margin-top : 5px;
+    display : flex;
+    text-align : center;
+}
+
+.contents .cnum{
+    text-align : center;
+    width : 10%;
+}
+
+.contents .ctitle{
+    
+    width : 45%;
+}
+
+.contents .cwriter{
+    
+    width : 20%;
+}
+
+.contents .cdate{
+    
+    width : 15%;
+}
+
+.contents .cview{
+    
+    width : 10%;
+}
+
+.btn{
+    margin-top : 20px;
+    text-align : end;
+}
+
+.paging{
+    text-align : center;
+}
